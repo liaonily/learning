@@ -5,6 +5,4 @@
 
 ### JavaScript traning:tankGame 
 + Specification
->2 files. One is html,another is js.
->Open the html in browser to see the game running.
->Use arrows key on keyboard to control direction and j key to shoot enemy tanks.
+Use HTML5 Canvas to implement the tank game with OO thinking.
