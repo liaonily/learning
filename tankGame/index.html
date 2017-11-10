@@ -8,10 +8,10 @@
   <title>tankGame</title>
 </head>
 <body onkeydown="getCommand()">
-  <h1>HTML5 坦克大战</h1>
+  <h1>HTML5 Tank Game </h1>
   <canvas id="canvas1" width="400" height="300" style="background-color: black;"></canvas>
-  <div id="aa">敌人坦克坐标</div>
-  <script type="text/javascript" src="tankGame.js"></script>
+  <div id="location">Enemies coordinates </div>
+  <script type="text/javascript" src="main.js"></script>
   <script type="text/javascript">
     var canvas1 = document.getElementById('canvas1');
     var cxt = canvas1.getContext('2d');
@@ -30,27 +30,30 @@
     }
     hero.enemyTanks = enemies;
 
-    //玩家坦克能够接收命令并做出行动
+    //Get user's commands
     function getCommand() {
-      //alert(event.keyCode);
-      /*进攻J,Enter: 74,13上：87，38右：68，39下：83，40左：65，37*/
       switch (event.keyCode) {
+        //Press "W" or up
         case 87:
         case 38:
           hero.moveUp();
           break;
+        //Press "D" or right
         case 68:
         case 39:
           hero.moveRight();
           break;
+        //Press "S" or down
         case 83:
         case 40:
           hero.moveDown();
           break;
+        //Press "A" or left
         case 65:
         case 37:
           hero.moveLeft();
           break;
+        //Press "J" or Enter
         case 74:
         case 13:
           hero.emitBullet();
@@ -59,17 +62,17 @@
       }
       flashTankMap();
     }
-    //敌人坦克自动跑并发出子弹
+    //Enemies activities, running and randowm shooting
     window.setInterval(function(){
       enemies.forEach(function(enemy){
-        //判断敌人坦克是否死亡，如果死亡便不能再跑，也不能发子弹
+        // Check enemy's state
         if(enemy.isAlive){
           enemy.run();
         }
       });
     },50);
 
-    //不停的画战场（包括子弹、hero、enemy）
+    //Continous flash map
     window.setInterval(function(){
       flashTankMap();
     },100)

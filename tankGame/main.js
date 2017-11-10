@@ -1,4 +1,4 @@
-//坦克构造函数
+//Tank constructor
 function Tank(x, y, direction, color, speed, bulletSpeed) {
   this.x = x;
   this.y = y;
@@ -66,7 +66,7 @@ function Tank(x, y, direction, color, speed, bulletSpeed) {
       bullet.fly();
     }, 50);
     bullet.timer = timer;
-    //检查子弹和敌方坦克距离的方法
+    //Check distance between my bullet and and enemies to judge if enemies should die
     var that = this;
     bullet.checkDistanceToEnemy = function () {
       that.enemyTanks.forEach(function (tank) {
@@ -81,9 +81,9 @@ function Tank(x, y, direction, color, speed, bulletSpeed) {
     };
     };
 
-//画出坦克
+//Drawing tank
 this.draw = function() {
-  //有子弹就画子弹
+  //Drawing bullets
   if (this.bullets) {
     this.bullets.forEach(function(bullet) {
       if (bullet.isAlive) {
@@ -91,7 +91,7 @@ this.draw = function() {
       }
     });
   }
-  //判断坦克状态，活着才画
+  //Check the state of the tank
   if(this.isAlive){
     switch (this.direction) {
       case 0:
@@ -146,7 +146,7 @@ this.draw = function() {
 };
 }
 
-//构造子弹函数
+//Bullet constructor
 function Bullet(x,y,direction,color,speed){
   this.x = x;
   this.y = y;
@@ -186,26 +186,25 @@ function Bullet(x,y,direction,color,speed){
   };
 }
 
-//通过对象冒充方法构造玩家的坦克
+//Player's tank
 function Hero(x, y, direction, color, speed, bulletSpeed) {
   this.tank = Tank;
   this.tank(x, y, direction, color, speed, bulletSpeed);
 }
 
-//通过对象冒充方法构造敌方坦克
+//Enemies tank
 function Enemy(x, y, direction, color, speed, bulletSpeed) {
   this.tank = Tank;
   this.tank(x, y, direction, color, speed, bulletSpeed);
-  //设置转向概率
+  //Set the probability of changing direction
   this.randomTurn = function () {
-    //产生0-1的随机数
+    //Create a random number between 0-1
     var a = Math.random();
-    //设置1%的转向概率
+    //1% change direction
     if (a < 0.01) {
-      //产生0、1、2、3、4的随机数
       this.direction = Math.floor(Math.random() * 4 + 0);
     }
-    //当到达画布边缘时，调整方向，调整为相反方向的概率为50%，左右各25%
+    //When tank is about to the edge of the map，change direction, reverse direction 50%，another two direction 25%
     var b = Math.random();
     if (this.x <= 0) {
       if (b >= 0 && b < 0.25) {
@@ -244,14 +243,14 @@ function Enemy(x, y, direction, color, speed, bulletSpeed) {
       }
     }
   };
-  //设置打子弹的频率
+  //Frequency of shooting
   this.randomEmitBullet = function() {
     var a = Math.random();
     if(a < 0.02){
       this.emitBullet();
     }
   };
-  //坦克移动
+  //Running function
   this.run = function(){
     this.randomTurn();
     this.randomEmitBullet();
@@ -282,14 +281,14 @@ function Enemy(x, y, direction, color, speed, bulletSpeed) {
 }
 
 function flashTankMap(){
-  //清除画布
+  //Clear Map
   cxt.clearRect(0, 0, 400, 300);
-  //重新绘制坦克
+  //Drawning map
   hero.draw();
   enemies.forEach(function(enemy){
   enemy.draw();
   });
-  document.getElementById("aa").innerHTML =
+  document.getElementById("location").innerHTML =
     "enemy1: " + enemies[0].x + "  ," + enemies[0].y + "<br/>" +
     "enemy2: " + enemies[1].x + "  ," + enemies[1].y +"<br/>" +
     "enemy3: " + enemies[2].x + "  ," + enemies[2].y +"<br/>" ;
