@@ -6,3 +6,4 @@
 ### JavaScript traning:tankGame 
 + Specification
 Use HTML5 Canvas to implement the tank game with OO thinking.
+[tankGame](http://liaonily.github.io/learning/tankGame/)
