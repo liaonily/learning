@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>tankGame</title>
+</head>
+<body onkeydown="getCommand()">
+  <h1>HTML5 坦克大战</h1>
+  <canvas id="canvas1" width="400" height="300" style="background-color: black;"></canvas>
+  <div id="aa">敌人坦克坐标</div>
+  <script type="text/javascript" src="tankGame.js"></script>
+  <script type="text/javascript">
+    var canvas1 = document.getElementById('canvas1');
+    var cxt = canvas1.getContext('2d');
+
+    var heroColor = ["#CD853F", "#FFCD41"];
+    var hero = new Hero(160, 230, 0, heroColor, 1, 2);
+    hero.draw();
+
+    var enemies = [];
+    var enemyColor =  ["#1E90FF",	"#87CEFA"];
+    for(var i = 0; i<3; i++){
+      var enemy = new Enemy((i+1)*80, 10, 2, enemyColor, 1, 2);
+      enemies.push(enemy);
+      enemy.draw();
+      enemy.enemyTanks = [hero];
+    }
+    hero.enemyTanks = enemies;
+
+    //玩家坦克能够接收命令并做出行动
+    function getCommand() {
+      //alert(event.keyCode);
+      /*进攻J,Enter: 74,13上：87，38右：68，39下：83，40左：65，37*/
+      switch (event.keyCode) {
+        case 87:
+        case 38:
+          hero.moveUp();
+          break;
+        case 68:
+        case 39:
+          hero.moveRight();
+          break;
+        case 83:
+        case 40:
+          hero.moveDown();
+          break;
+        case 65:
+        case 37:
+          hero.moveLeft();
+          break;
+        case 74:
+        case 13:
+          hero.emitBullet();
+          break;
+        default:
+      }
+      flashTankMap();
+    }
+    //敌人坦克自动跑并发出子弹
+    window.setInterval(function(){
+      enemies.forEach(function(enemy){
+        //判断敌人坦克是否死亡，如果死亡便不能再跑，也不能发子弹
+        if(enemy.isAlive){
+          enemy.run();
+        }
+      });
+    },50);
+
+    //不停的画战场（包括子弹、hero、enemy）
+    window.setInterval(function(){
+      flashTankMap();
+    },100)
+  </script>
+</body>
+
+</html>
