@@ -27,3 +27,7 @@
 15. [Static top navbar](https://liaonily.github.io/learning/bootstrap/static_top_navbar.html)
 16. [Stickey footer](https://liaonily.github.io/learning/bootstrap/stickey_footer.html)
 17. [Sticky footer with fixed navbar](https://liaonily.github.io/learning/bootstrap/sticky_footer_with_fixed_navbar.html)
+
+### Custom bless image
++ Use HTML5 canvas image download to create custom bless image.
++ Link [index](http://liaonily.github.io/learning/bless_image/)
