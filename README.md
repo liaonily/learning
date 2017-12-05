@@ -31,3 +31,6 @@
 ### Custom bless image
 + Use HTML5 canvas image download to create custom bless image.
 + Link [index](http://liaonily.github.io/learning/bless_image/)
+
+### Carousel
++ Link [index](http://liaonily.github.io/learning/carousel/)
