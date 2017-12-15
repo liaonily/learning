@@ -36,4 +36,4 @@
 + Link [index](http://liaonily.github.io/learning/carousel/)
 
 ### Tetris
-+ Link [index](http://liaonily.github.io/learning/carousel/)
++ Link [index](http://liaonily.github.io/learning/tetris/)
