@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tetris</title>
+  <style media="screen">
+    .game-map {
+      float: left;
+    }
+    .info {
+      float: left;
+      padding-left: 50px;
+      padding-top: 200px;
+      font-size: 20px;
+    }
+    .info p{
+      padding-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h1>HTML5 Tetris</h1>
+    <canvas class="game-map" id="main-canvas" width="410" height="810" style="background-color: #ffffff; border: 1px solid #222;"></canvas>
+    <div class="info">
+      <p>玩家得分：</p>
+      <p><span id = "score"></span></p>
+      <p>下一个：</p>
+      <canvas id="sub-canvas" width="170" height="90" style="background-color: #ffffff"></canvas>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var mainCanvas = document.getElementById("main-canvas");
+    var ctx = mainCanvas.getContext("2d");
+    //map with width 10 units and height 20 units
+    var map = new Array(10).join("0").split("0").map(item => {
+      return new Array(20).join("0").split("0").map(item => 0);
+    });
+
+    var subCanvas = document.getElementById("sub-canvas");
+    var ctx2 = subCanvas.getContext("2d");
+    var subMap = new Array(4).join("0").split("0").map(item => {
+      return new Array(2).join("0").split("0").map(item => 0);
+    });
+    var padding = 5;//画布的内边距
+
+  </script>
+  <script type="text/javascript" src="main.js"></script>
+</body>
+</html>
