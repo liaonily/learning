@@ -72,6 +72,7 @@
     <p class="tips" style="display: none">
       温馨提示：手机屏幕长按可保存图片哦~<a href="" id="download_link" download="gift_card.png">点击下载</a>
     </p>
+    <!--将content的背景设置为bg.jpg-->
     <div class="content" id="workbench">
       <input type="text" class="txt-input" placeholder="请输入想赠送的人" id ="receiver"/>
       <input type="text" class="txt-input" placeholder="请输入你的名字"  id ="author" />
@@ -94,17 +95,6 @@
       };
 
       /**
-      * 绘制或重绘，可多次执行
-      */
-      function draw() {
-        if(isImageLoad) {
-          ctx.clearRect(0, 0 , 750, 1100);
-          ctx.drawImage(img, 0, 0);
-          drawText();
-        }
-      }
-
-      /**
       * 绘制收件人和发件人文本
       * 字体设置应与表单的字体设置一致
       */
@@ -120,19 +110,41 @@
       }
 
       /**
+      * 绘制或重绘，可多次执行
+      */
+      function draw() {
+        if(isImageLoad) {
+          ctx.clearRect(0, 0 , 750, 1100);
+          ctx.drawImage(img, 0, 0);
+          drawText();
+        }
+      }
+
+      /**
       * 初始化下载链接
       * 将绘制好的canvas中抽取出数据，放入a标签的href
       * 注意：手机或移动设备上不支持点击下载
       */
       function initDownload() {
+        //  显示下载提示
+        document.querySelector("p.tips").style.display = "block";
         var link = document.getElementById("download_link");
-        var data = document.getElementById("main_canvas").toDataURL("png");
+        var canvas = document.getElementById("main_canvas");
+        var data = canvas.toDataURL("png");
+        console.log(data);
         var img = document.getElementById("img_result");
         img.setAttribute("src", data);
         img.style.display = "block";
-        link.setAttribute("href", data.replace(/^data:image\/png/, "data:image/octet-stream"));
-        //  显示下载提示
-        document.querySelector("p.tips").style.display = "block";
+        if(canvas.msToBlob) { // for ie
+          var blob = canvas.msToBlob();
+          window.navigator.msSaveBlob(blob);
+        } else { // other browsers
+          link.href = data;
+        }
+        // 将图片在新的标签页打开，可选
+        // var html="<img src='"+data+"' alt='from canvas' />";
+        // var tab = window.open();
+        // tab.document.write(html)
       }
 
       function initEvents() {
